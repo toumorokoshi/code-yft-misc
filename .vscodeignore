@@ -1,0 +1,12 @@
+.vscode/**
+.vscode-test/**
+out/test/**
+src/**
+.gitignore
+.vscodeignore
+tsconfig.json
+eslint.config.mjs
+justfile
+README.md
+LICENSE
+package-lock.json
