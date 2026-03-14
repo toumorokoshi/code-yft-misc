@@ -1,4 +1,5 @@
 .vscode/**
+.jj/**
 .vscode-test/**
 out/test/**
 src/**
@@ -7,6 +8,4 @@ src/**
 tsconfig.json
 eslint.config.mjs
 justfile
-README.md
-LICENSE
 package-lock.json
