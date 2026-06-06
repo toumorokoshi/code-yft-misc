@@ -17,7 +17,8 @@
   ],
   "activationEvents": [
     "onLanguage:markdown",
-    "onCommand:yft-misc.downloadFile"
+    "onCommand:yft-misc.downloadFile",
+    "onCommand:yft-misc.uploadFile"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -37,6 +38,10 @@
       {
         "command": "yft-misc.downloadFile",
         "title": "YFT Misc: Download File to Local"
+      },
+      {
+        "command": "yft-misc.uploadFile",
+        "title": "YFT Misc: Upload File to Remote"
       }
     ]
   },
