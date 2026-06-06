@@ -16,7 +16,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:markdown"
+    "onLanguage:markdown",
+    "onCommand:yft-misc.downloadFile"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -28,6 +29,14 @@
       {
         "command": "yft-misc.insertHotlink",
         "title": "YFT Misc: Insert Hotlink"
+      },
+      {
+        "command": "yft-misc.openHotlink",
+        "title": "YFT Misc: Open Hotlink"
+      },
+      {
+        "command": "yft-misc.downloadFile",
+        "title": "YFT Misc: Download File to Local"
       }
     ]
   },

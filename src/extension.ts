@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
-import { insertHotlink, WikilinkProvider } from "./hotlinks";
+import { insertHotlink, WikilinkProvider, openHotlink } from "./hotlinks";
+import { downloadFile } from "./download";
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "yft-misc" is now active!');
@@ -16,12 +17,28 @@ export function activate(context: vscode.ExtensionContext) {
     insertHotlink,
   );
 
+  const openHotlinkCmd = vscode.commands.registerCommand(
+    "yft-misc.openHotlink",
+    openHotlink,
+  );
+
+  const downloadFileCmd = vscode.commands.registerCommand(
+    "yft-misc.downloadFile",
+    downloadFile,
+  );
+
   const wikilinkProvider = vscode.languages.registerDocumentLinkProvider(
     { language: "markdown", scheme: "file" },
     new WikilinkProvider(),
   );
 
-  context.subscriptions.push(helloWorld, insertHotlinkCmd, wikilinkProvider);
+  context.subscriptions.push(
+    helloWorld,
+    insertHotlinkCmd,
+    openHotlinkCmd,
+    downloadFileCmd,
+    wikilinkProvider,
+  );
 }
 
 export function deactivate() {}

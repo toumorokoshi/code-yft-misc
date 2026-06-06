@@ -101,7 +101,31 @@ export async function insertHotlink() {
 }
 
 /**
+ * Command handler to open a hotlink and navigate to an anchor if specified.
+ */
+export async function openHotlink(uri: vscode.Uri, anchor?: string) {
+    const document = await vscode.workspace.openTextDocument(uri);
+    const editor = await vscode.window.showTextDocument(document);
+
+    if (anchor) {
+        const text = document.getText();
+        const headerRegex = /^(#+)\s+(.+)$/gm;
+        let match;
+        while ((match = headerRegex.exec(text)) !== null) {
+            const title = match[2].trim();
+            if (slugify(title) === anchor) {
+                const line = document.lineAt(document.positionAt(match.index).line);
+                editor.selection = new vscode.Selection(line.range.start, line.range.start);
+                editor.revealRange(line.range, vscode.TextEditorRevealType.InCenter);
+                return;
+            }
+        }
+    }
+}
+
+/**
  * Provides clickable links for [[wikilink]] patterns in markdown files.
+ * Uses the openHotlink command for reliable navigation to anchors.
  */
 export class WikilinkProvider implements vscode.DocumentLinkProvider {
     async provideDocumentLinks(document: vscode.TextDocument): Promise<vscode.DocumentLink[]> {
@@ -132,11 +156,17 @@ export class WikilinkProvider implements vscode.DocumentLinkProvider {
             }
 
             if (files.length > 0) {
-                let uri = files[0];
-                if (anchor) {
-                    uri = uri.with({ fragment: anchor });
-                }
-                links.push(new vscode.DocumentLink(range, uri));
+                const fileUri = files[0];
+                // Instead of a direct file URI, we use a command URI to trigger openHotlink
+                // The arguments must be JSON-stringified and URI-encoded
+                const args = [fileUri, anchor];
+                const commandUri = vscode.Uri.parse(
+                    `command:yft-misc.openHotlink?${encodeURIComponent(JSON.stringify(args))}`
+                );
+                
+                const link = new vscode.DocumentLink(range, commandUri);
+                link.tooltip = `Open ${target}${anchor ? '#' + anchor : ''}`;
+                links.push(link);
             }
         }
         
