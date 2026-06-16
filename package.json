@@ -18,7 +18,8 @@
   "activationEvents": [
     "onLanguage:markdown",
     "onCommand:yft-misc.downloadFile",
-    "onCommand:yft-misc.uploadFile"
+    "onCommand:yft-misc.uploadFile",
+    "onCommand:yft-misc.installVsixFromOpenvsx"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -42,6 +43,10 @@
       {
         "command": "yft-misc.uploadFile",
         "title": "YFT Misc: Upload File to Remote"
+      },
+      {
+        "command": "yft-misc.installVsixFromOpenvsx",
+        "title": "YFT Misc: Install .vsix from openvsx"
       }
     ]
   },
