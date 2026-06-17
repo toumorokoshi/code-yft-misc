@@ -19,7 +19,8 @@
     "onLanguage:markdown",
     "onCommand:yft-misc.downloadFile",
     "onCommand:yft-misc.uploadFile",
-    "onCommand:yft-misc.installVsixFromOpenvsx"
+    "onCommand:yft-misc.installVsixFromOpenvsx",
+    "onCommand:yft-misc.insertShortcutLink"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -31,6 +32,10 @@
       {
         "command": "yft-misc.insertHotlink",
         "title": "YFT Misc: Insert Hotlink"
+      },
+      {
+        "command": "yft-misc.insertShortcutLink",
+        "title": "YFT Misc: Insert Shortcut Link"
       },
       {
         "command": "yft-misc.openHotlink",

@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import * as os from "os";
-import { insertHotlink, WikilinkProvider, openHotlink } from "./hotlinks";
+import { insertHotlink, WikilinkProvider, openHotlink, insertShortcutLink } from "./hotlinks";
 import { downloadFile, uploadFile } from "./transfer";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -16,6 +16,11 @@ export function activate(context: vscode.ExtensionContext) {
   const insertHotlinkCmd = vscode.commands.registerCommand(
     "yft-misc.insertHotlink",
     insertHotlink,
+  );
+
+  const insertShortcutLinkCmd = vscode.commands.registerCommand(
+    "yft-misc.insertShortcutLink",
+    insertShortcutLink,
   );
 
   const openHotlinkCmd = vscode.commands.registerCommand(
@@ -46,6 +51,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     helloWorld,
     insertHotlinkCmd,
+    insertShortcutLinkCmd,
     openHotlinkCmd,
     downloadFileCmd,
     uploadFileCmd,
@@ -54,7 +60,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 }
 
-export function deactivate() {}
+export function deactivate() { }
 
 async function installVsixFromOpenvsx() {
   // First, try to get extension name from user
